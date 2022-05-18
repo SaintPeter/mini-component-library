@@ -49,9 +49,14 @@ const IconInput = ({
   );
 };
 
-const Wrapper = styled.div`
+const Wrapper = styled.label`
   position: relative;
   width: var(--width);
+  color: ${COLORS.gray700};
+  
+  &:hover {
+    color: black;
+  }
 `;
 
 // noinspection CssReplaceWithShorthandSafely
@@ -63,20 +68,13 @@ const NativeInput = styled.input`
   padding: var(--padding);
   padding-left: var(--padding-left);
   font-weight: 700;
-  color: ${COLORS.gray700};
+  color: inherit;
+  outline-offset: 4px;
   
   &::placeholder {
     font-weight: 400;
     color: ${COLORS.gray500};
-  }
-  
-  &:focus {
-    outline-offset: 4px;
-  }
-  
-  &:hover {
-    color: black;
-  }
+  } 
 `;
 
 const InputIcon = styled(Icon)`
