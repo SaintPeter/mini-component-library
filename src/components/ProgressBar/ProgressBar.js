@@ -3,9 +3,9 @@ import React from 'react';
 import styled from 'styled-components';
 
 import {COLORS} from '../../constants';
-// import VisuallyHidden from '../VisuallyHidden';
+import VisuallyHidden from '../VisuallyHidden';
 
-const SIZES = {
+const STYLES = {
   large: {
     height: '24px',
     padding: '4px',
@@ -25,13 +25,22 @@ const SIZES = {
 };
 
 const ProgressBar = ({value, size}) => {
+  const styles = STYLES[size];
+
+  if(!styles) {
+    throw Error(`Unrecognized Style Value: ${size}`);
+  }
+
   return (
     <ProgressContainer
-      style={SIZES[size]}
+      style={styles}
       role="progressbar"
       aria-valuenow={value}
     >
-      <ProgressIndicator value={value} />
+      <BarWrapper>
+        <Bar style={{'--width': value + '%'}} />
+      </BarWrapper>
+      <VisuallyHidden>{value}%</VisuallyHidden>
     </ProgressContainer>
   );
 };
@@ -39,19 +48,20 @@ const ProgressBar = ({value, size}) => {
 const ProgressContainer = styled.div`
   background-color: ${COLORS.transparentGray15};
   box-shadow: inset 0 2px 4px ${COLORS.transparentGray35};
-  overflow: hidden;
 `;
 
-const ProgressIndicator = styled.div`
+const Bar = styled.div`
   background-color: ${COLORS.primary};
   height: 100%;
   transition: 0.5s;
-  width: ${p => p.value + '%'}; 
-  border-top-left-radius: 4px;
-  border-bottom-left-radius: 4px;
-  /* This is not correct, but not sure how to make it gradual */
-  border-bottom-right-radius: ${p => p.value < 100 ? 0 : '4px' };
-  border-top-right-radius: ${p => p.value < 100 ? 0 : '4px' };
+  width: var(--width);
+`;
+
+const BarWrapper = styled.div`
+  height: 100%;
+  border-radius: 4px;
+  /* Clip the bar at the radius of the containing element */
+  overflow: hidden;
 `;
 
 export default ProgressBar;
