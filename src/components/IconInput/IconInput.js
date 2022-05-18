@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import {COLORS} from '../../constants';
 
 import Icon from '../Icon';
-// import VisuallyHidden from '../VisuallyHidden';
+import VisuallyHidden from '../VisuallyHidden';
 
 const SIZES = {
   small: {
@@ -21,7 +21,6 @@ const SIZES = {
   }
 };
 
-// noinspection JSUnusedLocalSymbols
 const IconInput = ({
                      label,
                      icon,
@@ -37,6 +36,7 @@ const IconInput = ({
 
   return (
     <Wrapper style={{'--width': width + 'px'}}>
+      <VisuallyHidden>{label}</VisuallyHidden>
       <InputIcon id={icon} size={styles.iconSize} />
       <NativeInput type="text" placeholder={placeholder}
       style={{
